@@ -1,0 +1,48 @@
+package com.sofrecom.suivi_effectif.model;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+@Entity
+@Table(name = "FILES_UPLOAD")
+public class UploadFile {
+	    private long id;
+	    private String fileName;
+	    private byte[] data;
+	 
+	    @Id
+	    @GeneratedValue
+	    @Column(name = "ID")
+	    public long getId() {
+	        return id;
+	    }
+	 
+	    public void setId(long id) {
+	        this.id = id;
+	    }
+	 
+	    @Column(name = "FILE_NAME")
+	    public String getFileName() {
+	        return fileName;
+	    }
+	 
+	    public void setFileName(String fileName) {
+	        this.fileName = fileName;
+	    }
+	    
+	    @Lob
+	    @Column(name = "FILE_DATA")
+	    public byte[] getData() {
+	        return data;
+	    }
+	 
+	    public void setData(byte[] data) {
+	        this.data = data;
+	    }
+}
+
+

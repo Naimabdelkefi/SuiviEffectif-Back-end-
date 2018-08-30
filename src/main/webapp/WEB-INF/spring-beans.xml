@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="listeEffectifDAO"
+		class="com.sofrecom.suivi_effectif.DAO.Impl.ListeEffectifDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+	<bean id="ListeEffectifService"
+		class="com.sofrecom.suivi_effectif.Service.Impl.ListeEffectifServiceImpl">
+		<property name="listeEffectifDAO" ref="listeEffectifDAO" />
+	</bean>
+	<bean id="TurnOverDAO"
+		class="com.sofrecom.suivi_effectif.DAO.Impl.TurnOverDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+	<bean id="TurnOverService"
+		class="com.sofrecom.suivi_effectif.Service.Impl.TurnOverServiceImpl">
+		<property name="TurnOverDAO" ref="TurnOverDAO" />
+	</bean>
+	<bean id="DepartDAO"
+		class="com.sofrecom.suivi_effectif.DAO.Impl.DepartDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+	<bean id="DepartService"
+		class="com.sofrecom.suivi_effectif.Service.Impl.DepartServiceImpl">
+		<property name="DepartDAO" ref="DepartDAO" />
+		<property name="ListeEffectifService" ref ="ListeEffectifService" />
+		<property name="TurnOverService" ref ="TurnOverService" />
+	</bean>
+	<bean id="EntryDAO"
+		class="com.sofrecom.suivi_effectif.DAO.Impl.EntryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+	<bean id="EntryService"
+		class="com.sofrecom.suivi_effectif.Service.Impl.EntryServiceImpl">
+		<property name="EntryDAO" ref="EntryDAO" />
+		<property name="ListeEffectifService" ref ="ListeEffectifService" />
+		<property name="TurnOverService" ref ="TurnOverService" />
+	</bean>
+	<bean id="UploadFileDAO"
+		class="com.sofrecom.suivi_effectif.DAO.Impl.UploadFileDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+
+	</bean>
+	<bean id="UploadFileService"
+		class="com.sofrecom.suivi_effectif.Service.Impl.UploadFileServiceImpl">
+		<property name="UploadFileDAO" ref="UploadFileDAO" />
+	</bean>
+
+</beans>
