@@ -112,12 +112,16 @@ public class ListeEffectifDaoImpl implements ListeEffectifDAO {
 			String mois2=parts[0]+"-"+ch+"-01";
 			System.out.println("mois1"+mois1);
 			System.out.println("mois2"+mois2);	
-		intList = getSessionFactory().getCurrentSession().createQuery(
-				"SELECT COUNT(*) FROM ListeEffectif WHERE(Date_de_sortie <? AND Date_dentrée<?) AND (HF=? ) AND (Pôle=?))")
-				.setParameter(0, mois1).setParameter(1, mois2).setParameter(2, sexe).setParameter(3, Pole).list();
+			intList = getSessionFactory().getCurrentSession()
+					.createQuery("SELECT COUNT(*) FROM ListeEffectif WHERE((Date_dentrée<? ) AND (HF=? ) AND (Pôle=?))")
+					.setParameter(0, mois2).setParameter(1, sexe).setParameter(2, Pole).list();
+			intList.addAll(getSessionFactory().getCurrentSession()
+					.createQuery("SELECT COUNT(*) FROM ListeEffectif WHERE((Date_de_sortie<? ) AND (HF=? ) AND (Pôle=?))")
+					.setParameter(0, mois2).setParameter(1, sexe).setParameter(2, Pole).list());
+		
+		return (long) intList.get(0) - intList.get(1);
 
-		return (long) intList.get(0);
-
+		
 
 	}
 
@@ -137,13 +141,17 @@ public class ListeEffectifDaoImpl implements ListeEffectifDAO {
 			if(i<10) {ch="0"+ch;}
 			String mois1=d+"-01";
 			String mois2=parts[0]+"-"+ch+"-01";
-
-		List<Long> intList = new ArrayList<Long>();
-		intList = getSessionFactory().getCurrentSession().createQuery(
-				"SELECT COUNT(*) FROM ListeEffectif WHERE (Date_de_sortie <? AND Date_dentrée<?) AND(Département=? ) AND (Pôle=?))")
-				.setParameter(0, mois1).setParameter(1, mois2).setParameter(2, deprt).setParameter(3, Pole).list();
-
-		return (long) intList.get(0);
+			
+			List<Long> intList = new ArrayList<Long>();
+			
+			intList = getSessionFactory().getCurrentSession()
+					.createQuery("SELECT COUNT(*) FROM ListeEffectif WHERE((Date_dentrée<? )AND(Département=? ) AND (Pôle=?))")
+					.setParameter(0, mois2).setParameter(1, deprt).setParameter(2, Pole).list();
+			intList.addAll(getSessionFactory().getCurrentSession()
+					.createQuery("SELECT COUNT(*) FROM ListeEffectif WHERE((Date_de_sortie<? )AND(Département=? ) AND (Pôle=?))")
+					.setParameter(0, mois2).setParameter(1, deprt).setParameter(2, Pole).list());
+		
+		return (long) intList.get(0) - intList.get(1);
 
 	}
 
